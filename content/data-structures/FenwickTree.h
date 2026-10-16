@@ -1,4 +1,6 @@
 /**
+ * Author: Thien Long
+ * Date: 2026-10-16
  * Description: Computes partial sums a[0] + a[1] + ... + a[pos - 1], and updates single elements a[i],
  * taking the difference between the old and new value.
  * Time: Both operations are $O(\log N)$.
