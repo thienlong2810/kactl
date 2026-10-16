@@ -1,7 +1,7 @@
 /**
  * Author: Thien Long
  * Date: 2026-10-16
- * Description: Computes partial sums a[0] + a[1] + ... + a[pos - 1], and updates single elements a[i],
+ * Description: Computes partial sums a[1] + ... + a[pos], and updates single elements a[i], (using 1-index)
  * Time: Both operations are $O(\log N)$.
  */
 #define lastbit(x) ((x) & (-x))
