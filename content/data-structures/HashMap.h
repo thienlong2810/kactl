@@ -1,4 +1,6 @@
 /**
+ * Author: Thien Long
+ * Date: 2026-10-16
  * Description: Hash map with mostly the same API as unordered\_map, but \tilde
  */
 #include <bits/stdc++.h>
