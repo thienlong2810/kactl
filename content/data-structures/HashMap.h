@@ -5,7 +5,7 @@ using namespace __gnu_pbds;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 struct custom_hash{
     size_t operator() (uint64_t x) const{
-        uint64_t R = rng() | 1;
+        static const uint64_t R = rng() | 1;
         return __builtin_bswap64(x * R);
     }
 };
