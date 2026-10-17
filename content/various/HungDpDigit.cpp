@@ -1,3 +1,9 @@
+/**
+ * Author: Hung
+ * Date: 2026-10-17
+ * License: CC0
+ * Description: Dp digit
+ */
 #include <bits/stdc++.h>
 
 #define maxN 100000
