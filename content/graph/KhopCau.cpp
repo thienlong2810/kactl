@@ -1,3 +1,10 @@
+/**
+ * Author: Hung
+ * Date: 2026-10-17
+ * License: CC0
+ * Description: Tim khop cau
+ * Time: O(N)
+ */
 #include <bits/stdc++.h>
 
 #define maxN 10000
