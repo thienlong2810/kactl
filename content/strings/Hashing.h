@@ -1,54 +1,59 @@
 /**
- * Author: Simon Lindholm
- * Date: 2015-03-15
+ * Author: Hung
+ * Date: 2026-10-17
  * License: CC0
  * Source: own work
  * Description: Self-explanatory methods for string hashing.
  * Status: stress-tested
  */
-#pragma once
+#include <bits/stdc++.h>
 
-// Arithmetic mod 2^64-1. 2x slower than mod 2^64 and more
-// code, but works on evil test data (e.g. Thue-Morse, where
-// ABBA... and BAAB... of length 2^10 hash the same mod 2^64).
-// "typedef ull H;" instead if you think test data is random,
-// or work mod 10^9+7 if the Birthday paradox is not a problem.
-typedef uint64_t ull;
-struct H {
-	ull x; H(ull x=0) : x(x) {}
-	H operator+(H o) { return x + o.x + (x + o.x < x); }
-	H operator-(H o) { return *this + ~o.x; }
-	H operator*(H o) { auto m = (__uint128_t)x * o.x;
-		return H((ull)m) + (ull)(m >> 64); }
-	ull get() const { return x + !~x; }
-	bool operator==(H o) const { return get() == o.get(); }
-	bool operator<(H o) const { return get() < o.get(); }
-};
-static const H C = (ll)1e11+3; // (order ~ 3e9; random also ok)
+#define maxN 1000000
+#define pb push_back
+#define pf push_front
+#define sz(a) (int) a.size()
+#define ff first
+#define ss second
+#define ll long long
+#define fto(i, a, b) for (int i = (int)(a); i <= (int)(b); ++i)
+#define fdto(i, a, b) for (int i = (int)(a); i >= (int)(b); --i)
+#define ii pair<int, int>
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+#define ld long double
 
-struct HashInterval {
-	vector<H> ha, pw;
-	HashInterval(string& str) : ha(sz(str)+1), pw(ha) {
-		pw[0] = 1;
-		rep(i,0,sz(str))
-			ha[i+1] = ha[i] * C + str[i],
-			pw[i+1] = pw[i] * C;
-	}
-	H hashInterval(int a, int b) { // hash [a, b)
-		return ha[b] - ha[a] * pw[b - a];
-	}
-};
+using namespace std;
 
-vector<H> getHashes(string& str, int length) {
-	if (sz(str) < length) return {};
-	H h = 0, pw = 1;
-	rep(i,0,length)
-		h = h * C + str[i], pw = pw * C;
-	vector<H> ret = {h};
-	rep(i,length,sz(str)) {
-		ret.push_back(h = h * C + str[i] - pw * str[i-length]);
-	}
-	return ret;
+string s;
+string t;
+const ll base = 311LL;
+const ll oo = (ll) 1e9+7;
+ll Pow[maxN+1], Hashs[maxN+1], Hasht;
+
+ll getHash(int i, int j) {
+    return ((Hashs[j] - Hashs[i-1]*Pow[j-i+1]%oo)+oo)%oo;
 }
 
-H hashString(string& s){H h{}; for(char c:s) h=h*C+c;return h;}
+int main() {
+    if (fopen("HASH1.INP", "r")) {
+        freopen("HASH1.INP", "r", stdin);
+        freopen("HASH1.OUT", "w", stdout);
+    }
+
+    fastio;
+
+    cin >> s;
+    cin >> t;
+
+    s = " " + s;
+    t = " " + t;
+
+    Hashs[0] = 0;
+    Pow[0] = 1;
+    fto(i, 1, sz(s)-1) {
+        Hashs[i] = (Hashs[i-1]*base%oo + (s[i] - '0'))%oo;
+        Pow[i] = (Pow[i-1]*base)%oo;
+    }
+    cout << ans << "\n";
+    return 0;
+}
+
